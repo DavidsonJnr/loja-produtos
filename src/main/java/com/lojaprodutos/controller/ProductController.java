@@ -30,7 +30,7 @@ public class ProductController {
 	private ProductService productService;
 	
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> cadastrar(@RequestBody ProductDTO productDTO) {
+	public ResponseEntity<Product> save(@RequestBody ProductDTO productDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productDTO));
 	}
 	
