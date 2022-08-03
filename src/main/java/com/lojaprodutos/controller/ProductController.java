@@ -43,21 +43,22 @@ public class ProductController {
 	public ResponseEntity<Product> getProduct(@PathVariable Long id) {
 		return ResponseEntity.ok(productService.getProductById(id));
 	}
+	
 	@GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Product>> search(@RequestParam(required = false) String q, @RequestParam(required = false) BigDecimal minPrice, 
-			@RequestParam(required = false) BigDecimal maxPrice) {
+	public ResponseEntity<List<Product>> search(@RequestParam(required = false) String q, @RequestParam(required = false, name = "min_price") BigDecimal minPrice, 
+			@RequestParam(required = false, name = "max_price") BigDecimal maxPrice) {
 		return ResponseEntity.ok(productService.search(q, minPrice, maxPrice));
 	}
 	
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	@ResponseStatus(value = HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		productService.delete(id);
 	}
 	
 	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> edit(@PathVariable Long id, @RequestBody Product product) {
-		return ResponseEntity.ok(productService.edit(id, product));
+	public ResponseEntity<Product> edit(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+		return ResponseEntity.ok(productService.edit(id, productDTO));
 	}
 	
 }
